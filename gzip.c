@@ -981,6 +981,12 @@ treat_file (char *iname)
         return;
       }
 
+    if (method == -1) {
+        if (!to_stdout)
+          remove_output_file (false);
+        return;
+    }
+
     if (!to_stdout)
       {
         copy_stat (&istat);
@@ -1010,12 +1016,6 @@ treat_file (char *iname)
                      strerror (unlink_errno)));
           }
       }
-
-    if (method == -1) {
-        if (!to_stdout)
-          remove_output_file (false);
-        return;
-    }
 
     /* Display statistics */
     if(verbose) {
@@ -1182,6 +1182,9 @@ get_suffix (char *name)
            break;
        }
     } while (*++suf != NULL);
+
+    known_suffixes[0] = NULL;
+    known_suffixes[countof (known_suffixes) - 2] = NULL;
     free(z_lower);
 
     return match;
@@ -1800,7 +1803,7 @@ shorten_name (char *name)
     save_orig_name = 1;
 
     /* compress 1234567890.tar to 1234567890.tgz */
-    if (len > 4 && strequ(p-4, ".tar")) {
+    if (p - name >= 4 && strequ(p-4, ".tar")) {
         strcpy(p-4, ".tgz");
         return;
     }
