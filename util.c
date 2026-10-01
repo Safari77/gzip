@@ -253,31 +253,6 @@ gzip_base_name (char *fname)
     return fname;
 }
 
-/* ========================================================================
- * Unlink a file, working around the unlink readonly bug (if present).
- */
-int
-xunlink (char *filename)
-{
-  int r = unlink (filename);
-
-#ifdef UNLINK_READONLY_BUG
-  if (r != 0)
-    {
-      int e = errno;
-      if (chmod (filename, S_IWUSR) != 0)
-        {
-          errno = e;
-          return -1;
-        }
-
-      r = unlink (filename);
-    }
-#endif
-
-  return r;
-}
-
 #ifdef NO_MULTIPLE_DOTS
 /* ========================================================================
  * Make a file name legal for file systems not allowing file names with

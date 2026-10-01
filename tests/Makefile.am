@@ -23,6 +23,8 @@ TESTS =					\
   hufts					\
   keep					\
   list					\
+  lzh-lzh-ctable-abuse			\
+  lzw-lzh-abuse				\
   memcpy-abuse				\
   mixed					\
   null-suffix-clobber			\

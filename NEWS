@@ -2,7 +2,14 @@ GNU gzip NEWS                                    -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+
+* Noteworthy changes in release 1.15 (2026-09-20) [stable]
+
 ** Bug fixes
+
+  gzip no longer can mistakenly remove the wrong file if some other
+  process simultaneously renames a gzip destination's ancestor.
+  [bug present since the beginning]
 
   gzip -d no longer rejects PKZIP signatures, local header, and data
   descriptors.  These can appear in well-formed streamed zip files.
@@ -21,6 +28,16 @@ GNU gzip NEWS                                    -*- outline -*-
   When decompressing an .lzh file, the output is no longer corrupted
   when an internal bit buffer is not properly cleared.
   [bug present since the beginning]
+
+  When decompressing an .lzh file after another .lzh file, the output is
+  no longer corrupted by the previous file's decoding table.
+  [bug present since the beginning]
+
+  gzip --synchronous no longer fails to synchronize unreadable parent
+  directories on platforms like GNU/Linux that have O_PATH, or to
+  synchronize any parent directories on platforms like FreeBSD that
+  have O_SEARCH but not O_PATH.
+  [bug introduced in gzip-1.7]
 
   On old-fashioned or limited platforms lacking mktemp, gzexe, zdiff
   and znew no longer have a race when creating a temporary file.

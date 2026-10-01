@@ -148,10 +148,9 @@
 #  define OS_CODE  0x0a
 #endif
 
-#ifndef SIGPIPE
-# define SIGPIPE 0
+#if defined __riscv_misaligned_fast && !defined UNALIGNED_OK
+#  define UNALIGNED_OK
 #endif
-
 
         /* Common defaults */
 
